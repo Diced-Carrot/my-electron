@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow,ipcMain } = require('electron/main')
 // app 是管理应用程序程序的事件生命周期
 // BrowserWindow创建和管理应用程序窗口
 
@@ -21,6 +21,7 @@ const createWindow = () => {
   
 
   app.whenReady().then(() => {
+    ipcMain.handle('ping', () => 'pong')  // 因为createWindow()其中的加载html文件中渲染进程中有调用ping函数，所以handle需要在这里执行
     createWindow()
   
     // app.on('activate', () => {
